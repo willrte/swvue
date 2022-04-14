@@ -1,14 +1,35 @@
 <template>
   <div class="page">
-    <div style="display: flex; flex-direction: row; margin-top: 2rem; justify-content: center">
-      <div class="link" @click="$router.push('/')">Home</div>
+    <div class="menu">
+      <div class="link" :class="{page_active: CurrentPage==='home'}" @click="$router.push('/');
+      ChangePageActive('home')">Home</div>
       <div style="margin: 0 1rem 0 1rem">_</div>
-      <div class="link" @click="$router.push('/test2emepage')">Star wars machin</div>
+      <div class="link" :class="{page_active: CurrentPage==='personnages'}" @click="$router.push('/personnages');
+      ChangePageActive('personnages')">Personnages</div>
+      <div style="margin: 0 1rem 0 1rem">_</div>
+      <div class="link" :class="{page_active: CurrentPage==='perso'}" @click="$router.push('/perso');
+      ChangePageActive('perso')">Perso</div>
     </div>
     <router-view/>
   </div>
 </template>
 
+<script>
+export default {
+  name: 'App',
+  data () {
+    return {
+      CurrentPage: 'home'
+    }
+  },
+  methods: {
+    ChangePageActive (name) {
+      this.CurrentPage = name
+    }
+  }
+}
+
+</script>
 <style lang="scss">
 html, body {
   height: 100%;
@@ -42,7 +63,13 @@ nav {
     }
   }
 }
-
+.menu{
+  display: flex;
+  flex-direction: row;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
+}
 .link {
   font-family: Poppins, sans-serif;
   font-size: 1.2rem;
@@ -66,5 +93,9 @@ button{
 }
 button:hover{
   background-color: #2c3e50;
+}
+.page_active{
+  font-weight: bold;
+  font-size: 2rem;
 }
 </style>

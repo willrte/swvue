@@ -1,9 +1,9 @@
 <template>
   <div class="haut_page">
-    <h1 style="margin: 0 1rem">{{$route.name}}</h1>
+<!--    <h1>{{$route.name}}</h1>-->
   </div>
 
-  <div style="display: flex; flex-wrap: wrap; width: 100%; height: 100%">
+  <div style="display: flex; flex-wrap: wrap; width: 80%; height: 100%">
     <div class="user_card" v-for="character in people.results" :key="character">
         <div class="people_title">{{character.name}}</div>
       <div class="under_infos_card">
@@ -14,9 +14,9 @@
     </div>
   </div>
   <div class="pagination">
-    <button  @click="prevPage()">prev</button>
+    <button  @click="prevPage()" :class="{ btn_none: !prevValue }">prev</button>
     <p style="margin: 0 1rem">Page : {{pageNumber}}</p>
-    <button @click="nextPage()">next</button>
+    <button @click="nextPage()" :class="{ btn_none: !nextValue }">next</button>
   </div>
 </template>
 <!--<div class="infobox" :class="{activated_box: item.date_paiement !== null }">-->
@@ -24,11 +24,13 @@
 import storeSwapi from '../store/store.swapi.js';
 
 export default {
-  name: 'StarWarsMachin',
+  name: 'ListePersonnages',
   data() {
     return {
       people: [],
-      pageNumber: 1
+      pageNumber: 1,
+      nextValue: true,
+      prevValue: false,
     };
   },
   components: {
@@ -39,7 +41,11 @@ export default {
         this.pageNumber++;
         storeSwapi.getAllPeople(this.pageNumber).then(response => {
           this.people = response.data;
+          this.prevValue = true;
         });
+      }
+      else {
+        this.nextValue = false;
       }
 
     },
@@ -48,7 +54,11 @@ export default {
         this.pageNumber--;
         storeSwapi.getAllPeople(this.pageNumber).then(response => {
           this.people = response.data;
+          this.nextValue = true;
         });
+      }
+      else {
+        this.prevValue = false;
       }
     },
   },
@@ -105,5 +115,10 @@ export default {
   height: 3rem;
   margin: 0.3rem;
   border-radius: 10px;
+}
+.btn_none{
+  background: #707070;
+  color: #d0d0d0;
+  cursor: not-allowed;
 }
 </style>
