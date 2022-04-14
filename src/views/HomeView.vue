@@ -1,6 +1,5 @@
 <template>
 <!--  <h1>{{$route.name}}</h1>-->
-  <h1>SWAPI ma gueule</h1>
   <div>Rentrez un nombre</div>
   <input v-model="number" type="number" />
   <div>le nombre est : {{pairimpair}}</div>

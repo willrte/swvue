@@ -1,9 +1,9 @@
 <template>
   <div class="haut_page">
-    <!--    <h1>{{$route.name}}</h1>-->
+    <input type="number" id="id_perso" v-model="persoNb">
+    <button @click="getPerso">Get Perso</button>
   </div>
-  <input type="number" id="id_perso" v-model="persoNb">
-  <div v-if="perso" class="card_perso">
+  <div v-if="perso && persoNb && persoNb!==0" class="card_perso">
     <div>
       {{ perso.name }}
     </div>
@@ -23,18 +23,19 @@
       Genre : {{ perso.gender }}
     </div>
     <div>
-        <div v-if="planetPerso">Homeworld :{{ planetPerso }}</div>
-        <div v-else>
-          <img src="../../src/assets/loading.gif" height="30" width="30">
-        </div>
+      <div v-if="planetPerso">Planète : {{ planetPerso }}</div>
+      <div v-else>
+        <img src="../../src/assets/loading.gif" height="30" width="30">
+      </div>
     </div>
 
   </div>
-  <div v-else>
+  <div v-else-if="persoNb">
     <img src="../../src/assets/loading.gif" height="200" width="200" style="margin-top: 2rem">
   </div>
-
-  {{ perso }}
+  <div>
+    <h1>{{ErrorMessage}}</h1>
+  </div>
 </template>
 <script>
 import storeSwapi from '../store/store.swapi.js';
@@ -43,32 +44,35 @@ export default {
   name: 'PersoSeul',
   data() {
     return {
-      persa: null,
       perso: null,
-      persoNb: 1,
+      persoNb: null,
       planetPerso: null,
+      ErrorMessage: null
     };
   },
   components: {},
-  methods: {},
+  methods: {
+    getPerso() {
+      if (this.persoNb <=0 || this.persoNb > 82) {
+        this.ErrorMessage = "L'ID doit être un nombre entier positif inférieur ou égal à 82";
+      } else {
+        this.ErrorMessage = null;
+        storeSwapi.getPerso(this.persoNb).then(response => {
+          this.perso = response.data;
+        });
+      }
+    },
+  },
   mounted() {
-    storeSwapi.getPerso(this.persoNb).then(response => {
-      this.perso = response.data;
-    });
   },
   watch: {
-    persoNb: function () {
-      storeSwapi.getPerso(this.persoNb).then(response => {
-        this.perso = response.data;
-      });
-    },
-    perso: function () {
+    perso() {
       let planetId = this.perso.homeworld.split('/')[5];
       storeSwapi.getPlanet(planetId).then(response => {
         this.planetPerso = response.data.name;
       });
-    },
-  },
+    }
+  }
 }
 </script>
 <style scoped>

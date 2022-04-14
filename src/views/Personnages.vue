@@ -4,13 +4,10 @@
   </div>
 
   <div style="display: flex; flex-wrap: wrap; width: 80%; height: 100%">
+    <img v-if="[] === people" src="../../src/assets/loading.gif" height="200" width="200" style="margin: auto">
     <div class="user_card" v-for="character in people.results" :key="character">
-        <div class="people_title">{{character.name}}</div>
-      <div class="under_infos_card">
-        <div>{{character.height/100}} m</div>
-        <div>{{character.mass}} kg</div>
-        <div>Naissance :{{character.birth_year}}</div>
-      </div>
+      <div class="people_title">{{character.name}}</div>
+      <PersoPop :persoData="character"/>
     </div>
   </div>
   <div class="pagination">
@@ -22,6 +19,7 @@
 <!--<div class="infobox" :class="{activated_box: item.date_paiement !== null }">-->
 <script>
 import storeSwapi from '../store/store.swapi.js';
+import PersoPop from '../components/PersoPop.vue';
 
 export default {
   name: 'ListePersonnages',
@@ -34,6 +32,7 @@ export default {
     };
   },
   components: {
+    PersoPop,
   },
   methods: {
     nextPage() {
@@ -61,6 +60,9 @@ export default {
         this.prevValue = false;
       }
     },
+    setPopStatus() {
+      this.PopStatus = !this.PopStatus;
+    },
   },
   mounted() {
       storeSwapi.getAllPeople(this.pageNumber).then(response => {
@@ -73,8 +75,8 @@ export default {
 .user_card{
   display: flex;
   flex-direction: column;
-  width: 10rem;
-  height: 10rem;
+  width: 15rem;
+  height: max-content;
   margin: 1rem;
   justify-content: center;
   align-items: center;
