@@ -1,18 +1,35 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <h1>{{$route.name}}</h1>
+  <div>Rentrez un nombre</div>
+  <input v-model="number" type="number" />
+  <div>le nombre est : {{pairimpair}}</div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: 'HomeView',
+  data() {
+    return {
+      number: 0,
+      pairimpair: "",
+    }
+  },
   components: {
-    HelloWorld
-  }
+
+  },
+  methods: {
+    isPair: function(mysterynumber) {
+      if (mysterynumber % 2 == 0) {
+        this.pairimpair = "pair";
+      } else {
+        this.pairimpair = "impair";
+      }
+    }
+  },
+  watch: {
+    number: function() {
+      this.isPair(this.number);
+    }
+  },
 }
 </script>
