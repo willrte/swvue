@@ -2,10 +2,14 @@
   <div class="haut_page">
 <!--    <h1>{{$route.name}}</h1>-->
   </div>
+  <div>
+    <input type="text" v-model="search" placeholder="Rechercher dans la page">
+  </div>
+
 
   <div style="display: flex; flex-wrap: wrap; width: 80%; height: 100%">
     <img v-if="[] === people" src="../../src/assets/loading.gif" height="200" width="200" style="margin: auto">
-    <div class="user_card" v-for="character in people.results" :key="character">
+    <div class="user_card" v-for="character in searchPeople" :key="character">
       <div class="people_title">{{character.name}}</div>
       <PersoPop :persoData="character"/>
     </div>
@@ -29,6 +33,7 @@ export default {
       pageNumber: 1,
       nextValue: true,
       prevValue: false,
+      search: '',
     };
   },
   components: {
@@ -63,12 +68,28 @@ export default {
     setPopStatus() {
       this.PopStatus = !this.PopStatus;
     },
+
   },
   mounted() {
       storeSwapi.getAllPeople(this.pageNumber).then(response => {
         this.people = response.data;
       });
   },
+  computed: {
+    searchPeople() {
+      if (this.search) {
+        return this.people.results.filter(personnage => {
+        return personnage.name.toLowerCase().includes(this.search.toLowerCase());
+      });
+      }
+      else {
+       return this.people.results;
+      }
+    },
+  },
+
+
+
 }
 </script>
 <style scoped>

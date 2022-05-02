@@ -33,7 +33,7 @@
   <!--  <div v-else>-->
   <!--    <img src="../../src/assets/loading.gif" height="200" width="200" style="margin-top: 2rem">-->
   <!--  </div>-->
-  <button v-on:click="showSelf = !showSelf">
+  <button v-on:click="showSelf = !showSelf" style="margin-bottom: 1vh">
     {{ showSelf ? 'Cacher' : 'Afficher' }}
   </button>
 </template>

@@ -108,4 +108,7 @@ input{
   font-weight: bold;
   font-size: 2rem;
 }
+.exercice_button:hover {
+  cursor: pointer;
+}
 </style>

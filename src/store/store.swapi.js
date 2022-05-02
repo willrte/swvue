@@ -14,5 +14,14 @@ let storeSwapi = {
     getPlanet(id) {
         return axios.get('https://swapi.dev/api/planets/' + id);
     },
+    getVehicle(id) {
+        return axios.get('https://swapi.dev/api/vehicles/' + id);
+    },
+    getStarship(id) {
+        return axios.get('https://swapi.dev/api/starships/' + id);
+    },
+    getFilm(id) {
+        return axios.get('https://swapi.dev/api/films/' + id);
+    },
 }
 export default storeSwapi;

@@ -1,8 +1,13 @@
 <template>
 <!--  <h1>{{$route.name}}</h1>-->
-  <div>Rentrez un nombre</div>
-  <input v-model="number" type="number" />
-  <div>le nombre est : {{pairimpair}}</div>
+  <div v-if="exercice">
+    <div>Rentrez un nombre</div>
+    <input v-model="number" type="number" />
+    <div>le nombre est : {{pairimpair}}</div>
+  </div>
+  &nbsp;
+  <input class="exercice_button" type="button" value="Afficher / cacher exercice" @click="exercice=!exercice" />
+
 </template>
 
 <script>
@@ -12,6 +17,7 @@ export default {
     return {
       number: 0,
       pairimpair: "",
+      exercice: false
     }
   },
   components: {
