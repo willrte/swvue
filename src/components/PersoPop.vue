@@ -1,6 +1,5 @@
 <template>
   <div v-if="perso && showSelf" class="row_part">
-<!--    <div class="partDesc">-->
       <div>
         {{ perso.name }}
       </div>
@@ -13,8 +12,6 @@
       <div>
         Couleur de cheuveux : {{ perso.hair_color }}
       </div>
-<!--    </div>-->
-<!--    <div class="partDesc">-->
       <div>
         Année de naissance : {{ perso.birth_year }}
       </div>
@@ -28,15 +25,11 @@
         </div>
       </div>
     </div>
-
-<!--  </div>-->
-  <!--  <div v-else>-->
-  <!--    <img src="../../src/assets/loading.gif" height="200" width="200" style="margin-top: 2rem">-->
-  <!--  </div>-->
   <button v-on:click="showSelf = !showSelf" style="margin-bottom: 1vh">
     {{ showSelf ? 'Cacher' : 'Afficher' }}
   </button>
 </template>
+
 <script>
 import storeSwapi from '../store/store.swapi.js';
 
@@ -65,6 +58,7 @@ export default {
   watch: {}
 }
 </script>
+
 <style scoped>
 .partDesc {
   display: flex;

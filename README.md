@@ -1,16 +1,16 @@
 # swvue
 
-## Project setup
+## Project setup - étapes :
+### 1 - Mettre à jour les dépendances
 ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
+### 2 - Compiler pour run
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Optionnel - Compiler pour production
 ```
 npm run build
 ```
@@ -19,6 +19,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
