@@ -10,7 +10,7 @@
         {{ perso.mass }} kg
       </div>
       <div>
-        Couleur de cheuveux : {{ perso.hair_color }}
+        Couleur de cheveux : {{ perso.hair_color }}
       </div>
       <div>
         Année de naissance : {{ perso.birth_year }}
